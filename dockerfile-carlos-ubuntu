@@ -1,0 +1,17 @@
+FROM ubuntu:22.04
+
+# Evita mensajes interactivos
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    php \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN rm -rf /var/www/html*
+#RUN git clone https://github.com/example/simple-php-app.git /var/www/html/
+RUN git clone https://github.com/heroku/php-getting-started.git /var/www/html/
+EXPOSE 80
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
